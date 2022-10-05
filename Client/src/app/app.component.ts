@@ -17,10 +17,9 @@ export class AppComponent implements OnInit {
   }
 
   getUsers() {
-    this.http.get('https://localhost:5001/App/OpenDating/Users').subscribe(response => {
-      this.users = response;
-    }, error => {
-      console.log(error);
+    this.http.get('https://localhost:5001/App/OpenDating/Users').subscribe({
+      next: response => this.users = response,
+      error: error => console.log(error)
     });
   }
 }
