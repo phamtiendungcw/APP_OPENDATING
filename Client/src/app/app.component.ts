@@ -4,13 +4,13 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
   title = 'The Dating App';
   users: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
     this.getUsers();
@@ -18,8 +18,8 @@ export class AppComponent implements OnInit {
 
   getUsers() {
     this.http.get('https://localhost:5001/App/OpenDating/Users').subscribe({
-      next: response => this.users = response,
-      error: error => console.log(error)
+      next: (response) => (this.users = response),
+      error: (error) => console.log(error),
     });
   }
 }
