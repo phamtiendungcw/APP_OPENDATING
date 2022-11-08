@@ -1,6 +1,6 @@
-import {AccountService} from "./_services/account.service";
-import {User} from "./_models/user";
-import {Component, OnInit} from "@angular/core";
+import { AccountService } from "./_services/account.service";
+import { User } from "./_models/user";
+import { Component, OnInit } from "@angular/core";
 
 @Component({
   selector: "app-root",
@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
   title = "The Dating App";
   users: any;
 
-  constructor(private accountService: AccountService) {}
+  constructor(private accountService: AccountService) { }
 
   ngOnInit() {
     this.setCurrentUser();
