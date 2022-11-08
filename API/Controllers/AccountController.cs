@@ -20,30 +20,6 @@ namespace API.Controllers
             _tokenService = tokenService;
         }
 
-        [HttpPost("Register")]
-        public async Task<ActionResult<UserDto>> Register(RegisterDto register)
-        {
-            if (await UserExit(register.Username))
-                return BadRequest("User name is taken");
-            using var hmac = new HMACSHA512();
-
-            var user = new AppUser()
-            {
-                Username = register.Username,
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(register.Password)),
-                PasswordSalt = hmac.Key
-            };
-
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            return new UserDto
-            {
-                Username = user.Username,
-                Token = _tokenService.CreateToken(user)
-            };
-        }
-
         [HttpPost("Login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto login)
         {
@@ -69,6 +45,29 @@ namespace API.Controllers
             };
         }
 
+        [HttpPost("Register")]
+        public async Task<ActionResult<UserDto>> Register(RegisterDto register)
+        {
+            if (await UserExit(register.Username))
+                return BadRequest("User name is taken");
+            using var hmac = new HMACSHA512();
+
+            var user = new AppUser()
+            {
+                Username = register.Username,
+                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(register.Password)),
+                PasswordSalt = hmac.Key
+            };
+
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            return new UserDto
+            {
+                Username = user.Username,
+                Token = _tokenService.CreateToken(user)
+            };
+        }
         private async Task<bool> UserExit(string userName)
         {
             return await _context.Users.AnyAsync(x => x.Username == userName.ToLower());

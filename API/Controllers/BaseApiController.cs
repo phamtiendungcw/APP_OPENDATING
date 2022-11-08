@@ -6,6 +6,5 @@ namespace API.Controllers
     [Route("App/OpenDating/[controller]")]
     public class BaseApiController : ControllerBase
     {
-
     }
 }
