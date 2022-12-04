@@ -25,7 +25,7 @@ namespace API.Middleware
             catch (Exception e)
             {
                 _logger.LogError(e, e.Message);
-                context.Response.ContentType = "application/json";
+                context.Response.ContentType = "application.json";
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 var response = _env.IsDevelopment()
                     ? new ApiException(context.Response.StatusCode, e.Message, e.StackTrace?.ToString())
