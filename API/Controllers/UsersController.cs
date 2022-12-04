@@ -30,7 +30,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{username}")]
-        public async Task<ActionResult<MemberDto>> GetUsers([FromRoute] string username)
+        public async Task<ActionResult<MemberDto>> GetUser([FromRoute] string username)
         {
             return await _userRepository.GetMemberAsync(username);
         }

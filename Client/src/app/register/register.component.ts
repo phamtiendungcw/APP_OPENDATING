@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Output } from "@angular/core";
 import { AccountService } from "../_services/account.service";
 import { ToastrService } from "ngx-toastr";
 
@@ -7,30 +7,26 @@ import { ToastrService } from "ngx-toastr";
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.css"],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   @Output() cancelRegister = new EventEmitter();
   model: any = {};
 
   constructor(
     private accountService: AccountService,
     private toastr: ToastrService
-  ) {
-  }
-
-  ngOnInit(): void {
-  }
+  ) {}
 
   register() {
-    this.accountService.register(this.model).subscribe(
-      (response) => {
-        console.log(response);
+    this.accountService.register(this.model).subscribe({
+      next: (v) => {
+        console.log(v);
         this.cancel();
       },
-      (error) => {
-        console.log(error);
-        this.toastr.error(error.error);
-      }
-    );
+      error: (e) => {
+        console.log(e);
+        this.toastr.error(e.error);
+      },
+    });
   }
 
   cancel() {
